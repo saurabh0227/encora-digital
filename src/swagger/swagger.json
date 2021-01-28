@@ -1,0 +1,320 @@
+{
+  "info": {
+    "description": "API documentation for Encora Digital",
+    "title": "Swagger",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "produces": ["application/json"],
+  "schemes": ["http"],
+  "swagger": "2.0",
+  "paths": {
+    "/v1/users/signup": {
+      "post": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/signup"
+            }
+          }
+        ],
+        "description": "",
+        "tags": ["Users"],
+        "responses": [ {
+          "description": "Successful operation",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        },{
+          "description": "Error",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        }
+      ]
+      }
+    },
+    "v1/users/login": {
+      "post": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          }
+        ],
+        "description": "",
+        "tags": ["Users"],
+        "responses": [ {
+          "description": "Successful operation",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        },{
+          "description": "Error",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        }
+      ]
+      }
+    },
+    "/v1/notes/create": {
+      "post": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateNote"
+            }
+          }
+        ],
+        "description": "",
+        "tags": ["Notes"],
+        "responses": [ {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          },{
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/OPStatus"
+            }
+          }
+        ]
+      }
+    },
+    "/v1/notes/fetchAll": {
+      "get": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [],
+        "description": "",
+        "tags": ["Notes"],
+        "responses": [ {
+          "description": "Successful operation",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        },{
+          "description": "Error",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        }
+      ]
+      }
+    },
+    "/v1/notes/fetchByUser": {
+      "get": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [],
+        "description": "",
+        "tags": ["Notes"],
+        "responses": [ {
+          "description": "Successful operation",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        },{
+          "description": "Error",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        }
+      ]
+      }
+    },
+    "/v1/notes/update/:noteId": {
+      "put": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateNote"
+            }
+          }
+        ],
+        "description": "",
+        "tags": ["Notes"],
+        "responses": [ {
+          "description": "Successful operation",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        },{
+          "description": "Error",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        }
+      ]
+      }
+    },
+    "/v1/notes/remove/:noteId": {
+      "delete": {
+        "security": [
+          {
+            "token": []
+          }
+        ],
+        "parameters": [],
+        "description": "",
+        "tags": ["Notes"],
+        "responses": [ {
+          "description": "Successful operation",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        },{
+          "description": "Error",
+          "schema": {
+            "$ref": "#/definitions/OPStatus"
+          }
+        }
+      ]
+      }
+    }
+  },
+  "definitions": {
+    "Token": {
+      "type": "object",
+      "properties": {
+        "authorization": {
+          "type": "string"
+        }
+      }
+    },
+    "signup": {
+      "$ref": "#/definitions/UserSignup"
+    },
+    "login": {
+      "$ref": "#/definitions/UserLogin"
+    },
+    "UserSignup": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "UserLogin": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateNote": {
+      "$ref": "#/definitions/Note"
+    },
+    "UpdateNote": {
+      "$ref": "#/definitions/Note"
+    },
+    "Note": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      }
+    },
+    "OPStatus": {
+      "required": [
+        "status",
+        "success",
+        "error"
+      ],
+      "properties": {
+        "status": {
+          "type": "boolean"
+        },
+        "success": {
+          "type": "object"
+        },
+        "error": {"type": "object"}
+      }
+    }
+  },
+  "responses": {},
+  "parameters": {},
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    },
+    "token": {
+      "type": "apiKey",
+      "name": "Bearer",
+      "in": "header"
+    }
+  },
+  "tags": [
+    {
+      "name": "Users",
+      "description": "For signup and login"
+    },
+    {
+      "name": "Notes",
+      "description": "To manage user notes"
+    }
+  ]
+}
