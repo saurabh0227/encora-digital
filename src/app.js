@@ -25,6 +25,7 @@ class App {
     this.express = express();
     this.setMiddlewares();
     this.setRoutes();
+    this.handleError();
   }
 
   setMiddlewares() {
@@ -32,6 +33,7 @@ class App {
     this.express.use(morgan('dev'));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: false }));
+
     this.express.use(swaggerRoute);
 
     morgan.token('req-body', (req) => {
@@ -65,6 +67,21 @@ class App {
 
   setRoutes() {
     this.express.use('/v1', apiV1);
+  }
+
+  handleError() {
+    this.express.use((err, req, res, next) => {
+      if (!err) {
+        return next();
+      }
+      res.status(500).send({
+        status: false,
+        success: null,
+        error: {
+          message: 'Something went wrong!',
+        },
+      });
+    });
   }
 }
 

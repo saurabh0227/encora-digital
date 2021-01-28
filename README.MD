@@ -55,3 +55,7 @@
 ### Potman collection URL
 
 https://www.getpostman.com/collections/6558a85671034cd43569
+
+### Swagger documentation link
+
+http://localhost:3000/api-docs/

@@ -5,7 +5,7 @@ const Note = require('./model');
 
 const controller = 'notes';
 
-exports.create = async (req, res) => {
+exports.create = async (req, res, next) => {
   console.log(
     `${moment()} | ${
       req.reqId
@@ -25,7 +25,7 @@ exports.create = async (req, res) => {
       });
       return;
     }
-    res.status(200).send({
+    res.status(201).send({
       status: true,
       success: {
         message: 'Note added successfully!',
@@ -39,17 +39,11 @@ exports.create = async (req, res) => {
         req.reqId
       } | ${controller} | create | error => ${error.toString()}`
     );
-    res.status(500).send({
-      status: false,
-      success: null,
-      error: {
-        message: 'Something went wrong!',
-      },
-    });
+    next(error);
   }
 };
 
-exports.fetchAll = async (req, res) => {
+exports.fetchAll = async (req, res, next) => {
   console.log(
     `${moment()} | ${
       req.reqId
@@ -87,17 +81,11 @@ exports.fetchAll = async (req, res) => {
         req.reqId
       } | ${controller} | fetchAll | error => ${error.toString()}`
     );
-    res.status(500).send({
-      status: false,
-      success: null,
-      error: {
-        message: 'Something went wrong!',
-      },
-    });
+    next(error);
   }
 };
 
-exports.fetchByUser = async (req, res) => {
+exports.fetchByUser = async (req, res, next) => {
   console.log(
     `${moment()} | ${
       req.reqId
@@ -135,17 +123,11 @@ exports.fetchByUser = async (req, res) => {
         req.reqId
       } | ${controller} | fetchByUser | error => ${error.toString()}`
     );
-    res.status(500).send({
-      status: false,
-      success: null,
-      error: {
-        message: 'Something went wrong!',
-      },
-    });
+    next(error);
   }
 };
 
-exports.update = async (req, res) => {
+exports.update = async (req, res, next) => {
   console.log(
     `${moment()} | ${
       req.reqId
@@ -180,17 +162,11 @@ exports.update = async (req, res) => {
         req.reqId
       } | ${controller} | update | error => ${error.toString()}`
     );
-    res.status(500).send({
-      status: false,
-      success: null,
-      error: {
-        message: 'Something went wrong!',
-      },
-    });
+    next(error);
   }
 };
 
-exports.remove = async (req, res) => {
+exports.remove = async (req, res, next) => {
   console.log(
     `${moment()} | ${
       req.reqId
@@ -214,11 +190,11 @@ exports.remove = async (req, res) => {
       });
       return;
     }
-    res.status(200).send({
+    res.status(204).send({
       status: true,
       success: {
         message: 'Note deleted successfully!',
-        data: [note],
+        data: [],
       },
       error: null,
     });
@@ -228,12 +204,6 @@ exports.remove = async (req, res) => {
         req.reqId
       } | ${controller} | remove | error => ${error.toString()}`
     );
-    res.status(500).send({
-      status: false,
-      success: null,
-      error: {
-        message: 'Something went wrong!',
-      },
-    });
+    next(error);
   }
 };
